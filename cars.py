@@ -1,46 +1,55 @@
+import csv
 from jinja2 import Template
 
-T1 = """Hello {{name}}"""
+attributes = ["Name", "MPG", "Cylinders", "Displacement", "Horsepower", "Weight", "Acceleration", "Model", "Origin"]
+diclist = []
 
-T2 = """Fuck you {{name}}"""
+with open('cars.csv', mode = 'r') as cars:
+    carfile = csv.reader(cars, delimiter = ';')
+    line_count = 0
 
-T3 = """
+    for each in carfile:
+        if line_count == 0 or line_count == 1:
+            line_count = line_count + 1
+        else: 
+            dic = {}
+            n = 0
+            for word in each:
+                if n == 0:
+                    dic[attributes[n]] = str(word)
+                elif n == 1:
+                    dic[attributes[n]] = float(word)
+                elif n == 2:
+                    dic[attributes[n]] = int(word)
+                elif n == 3:
+                    dic[attributes[n]] = float(word)
+                elif n == 4:
+                    dic[attributes[n]] = float(word)
+                elif n == 5:
+                    dic[attributes[n]] = float(word)
+                elif n == 6:
+                    dic[attributes[n]] = float(word)
+                elif n == 7:
+                    dic[attributes[n]] = int(word)
+                else:
+                    dic[attributes[n]] = str(word)
+                n = n + 1
 
-<!DOCTYPE html>
-<head>
-<h1> Jnanpith </h1>
-<p> Bhartiya Jnanpith is a literary organisation based in Delhi. It also presents highest literacy awards in India. </p>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<h2> Awardees </h2>
-<table style="border:1px solid black;">
-<thead>
-<tr style="background-color:lightgreen;">
-<th>Year</th>
-<th>Recipient(s)</th>
-<th>Language(s)</th>
-</tr>
-</thead>
-<tr><td>1965</td><td>G. Sankara Kurup</td><td>Malayalam</td></tr>
-<tr><td>1966</td><td>Tarasankar Bandyopadhyay</td><td>Bengali</td></tr>
-<tr><td>{{data["year"]}}</td><td>{{data["name"]}}</td><td>{{data["language"]}}</td></tr>
-</table>
-
-"""
-
-data = {"year": 1956, "name": "Jai Shri Ram" , "language" : "Malyalam"}
-
+            diclist.append(dic)
+            
+cars.close()
 def main():
-    obj1 = Template(T1)
-    obj2 = Template(T2)
-    obj3 = Template(T3)
-    print(obj1.render(name = "Haider"))
-    print(obj2.render(name = "Faizal"))
-    print(obj3.render(data = data))
-                    
-main()
+    tfile = open('carstemplate.html.jinja2', 'r')
+    TEMPLATE = tfile.read()
+    tfile.close()
+    obj1 = Template(TEMPLATE)
+    content = obj1.render(diclist = diclist)
+    file = open('cars.html', mode = 'w')
+    file.write(content)
+    file.close()
+    
 
 if __name__ == "__main__":
     main()
 
+            

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<head>
+	<h1> Cars </h1>
+	<p> This data explians a lot of information about various cars and their origins and features. </p>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h2> Cars </h2>
+	<table style="border:1px solid black;">
+	<thead>
+	<tr style="background-color:lightgrey;">
+		<th>Car Name</th>
+		<th>MPG</th>
+		<th>Cylinders</th>
+		<th>Displacement</th>
+		<th>Horsepower</th>
+		<th>Weight</th>
+		<th>Acceleration</th>
+		<th>Model</th>
+		<th>Origin</th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for data1 in diclist %}
+		<tr>
+		<td>{{data1["Name"]}}</td>
+    		<td>{{data1["MPG"]}}</td>
+    		<td>{{data1["Cylinders"]}}</td>
+    		<td>{{data1["Displacement"]}}</td>
+    		<td>{{data1["Horsepower"]}}</td>
+    		<td>{{data1["Weight"]}}</td>
+    		<td>{{data1["Acceleration"]}}</td>
+    		<td>{{data1["Model"]}}</td>
+    		<td>{{data1["Origin"]}}</td>
+		</tr>
+		{% endfor %}
+	</tbody} 
+</table>
